@@ -28,7 +28,7 @@ void printf_init(){
   }
 }
 
-void bluetooth_init(){
+void bt_init(){
   huart3.Instance = USART3;
 
   huart3.Init.BaudRate = 9600;
@@ -49,9 +49,22 @@ PUTCHAR_PROTOTYPE
   return ch;
 }
 
+void BT_Transmit(uint8_t * aTxBuffer,int TXBUFFERSIZE){
+	  if (HAL_UART_Transmit(&huart3, (uint8_t *) aTxBuffer, TXBUFFERSIZE, 5000) != HAL_OK) {
+    printf("HAL_UART_Transmit() Error\n\r");
+  }
+}
+
+void BT_Receive_IT(uint8_t * aRxBuffer){
+  if (HAL_UART_Receive_IT(&huart3, (uint8_t *) aRxBuffer, 10) != HAL_OK) {
+    printf("HAL_UART_Receive_IT() Error\n\r");
+  }
+}
+
 static void Error_Handler(void)
 {
   while (1)
   {
+		printf("Initialize Error");
   }
 }

@@ -5,4 +5,6 @@
 #endif
 
 extern void printf_init(void);
-extern void bluetooth_init(void);
+extern void bt_init(void);
+extern void BT_Transmit(uint8_t * aTxBuffer,int TXBUFFERSIZE);
+extern void BT_Receive_IT(uint8_t * aRxBuffer);

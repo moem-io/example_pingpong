@@ -14,6 +14,15 @@
 #include "sys_cfg.h"
 #include "peripheral_init.h"
 
+/* Size of Trasmission buffer */
+#define TXBUFFERSIZE                      (COUNTOF(aTxBuffer) - 1)
+/* Size of Reception buffer */
+#define RXBUFFERSIZE                      TXBUFFERSIZE
+  
+/* Exported macro ------------------------------------------------------------*/
+#define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
+/* Exported functions ------------------------------------------------------- */
+
 #endif
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

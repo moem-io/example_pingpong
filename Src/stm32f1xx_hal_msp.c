@@ -27,7 +27,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef * huart) {
     GPIO_InitStruct.Pin = GPIO_PIN_10;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-		
+
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   }
   else if (huart->Instance == USART2) {
@@ -47,7 +47,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef * huart) {
     GPIO_InitStruct.Pin = GPIO_PIN_3;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-		
+
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   }
   else if (huart->Instance == USART3) {
@@ -67,8 +67,12 @@ void HAL_UART_MspInit(UART_HandleTypeDef * huart) {
     GPIO_InitStruct.Pin = GPIO_PIN_11;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-		
+
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /* UART3 NVIC configuration */
+    HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
+    HAL_NVIC_EnableIRQ(USART3_IRQn);
   }
 }
 
@@ -93,6 +97,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef * huart) {
 
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10);
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_11);
+
+    /* UART3 NVIC Disable  */
+    HAL_NVIC_DisableIRQ(USART3_IRQn);
   }
 }
 
