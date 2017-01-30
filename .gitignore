@@ -28,3 +28,8 @@
 *.uvguix.*
 Backup/
 *.dbgconf
+
+######### Working Files
+*.c~
+*.h~
+
