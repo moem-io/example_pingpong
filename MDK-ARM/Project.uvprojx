@@ -335,7 +335,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB,USE_STM32F1xx_NUCLEO</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../../../../../../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../../../../../../Drivers/STM32F1xx_HAL_Driver/Inc;../../../../../../Drivers/BSP/STM32F1xx_Nucleo</IncludePath>
+              <IncludePath>../Inc;/Keil_v5/ARM/PACK/STM32Cube_FW_F1_V1.4.0/Drivers/CMSIS/Device/ST/STM32F1xx/Include;/Keil_v5/ARM/PACK/STM32Cube_FW_F1_V1.4.0/Drivers/STM32F1xx_HAL_Driver/Inc;/Keil_v5/ARM/PACK/STM32Cube_FW_F1_V1.4.0/Drivers/BSP/STM32F1xx_Nucleo</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
