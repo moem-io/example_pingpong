@@ -13,7 +13,7 @@ UART_HandleTypeDef huart3;
 
 static void Error_Handler(void);
 
-void printf_init(){
+void Term_Init(){
   huart2.Instance        = USART2;
 
   huart2.Init.BaudRate   = 9600;
@@ -28,7 +28,7 @@ void printf_init(){
   }
 }
 
-void bt_init(){
+void BT_Init(){
   huart3.Instance = USART3;
 
   huart3.Init.BaudRate = 9600;
@@ -47,6 +47,16 @@ PUTCHAR_PROTOTYPE
   HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
 
   return ch;
+}
+
+void Term_Receive_IT(uint8_t * aRxBuffer){
+  if (HAL_UART_Receive_IT(&huart2, (uint8_t *) aRxBuffer, 10) != HAL_OK) {
+    printf("HAL_UART_Receive_IT() Error\n\r");
+  }
+}
+
+void USART3_IRQHandler(void){
+	  HAL_UART_IRQHandler(&huart3);
 }
 
 void BT_Transmit(uint8_t * aTxBuffer,int TXBUFFERSIZE){

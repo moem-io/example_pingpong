@@ -13,5 +13,5 @@ Place your Firmware Package at Keil Pack Location.
 
 **Do Not Change Firmware Package Folder name!!**
 
-ex) `/C/Keil_v5/ARM/PACK/STM32Cube_FW_F1_V1.4.0`
+ex) `/Keil_v5/ARM/PACK/STM32Cube_FW_F1_V1.4.0`
 

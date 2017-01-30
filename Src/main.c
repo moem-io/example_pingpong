@@ -28,10 +28,10 @@ int main(void) {
 
   /* Configure the system clock to 64 MHz */
   SystemClock_Config();
-  printf_init();
-  bt_init();
+  Term_Init();
+  BT_Init();
 
-  printf("\n\rPRINTF+OK+\n\r");
+  printf("\n\rTERM_START+OK+\n\r");
   printf("\n\rBT_START+OK+\n\r");
 	
 	BT_Transmit(aTxBuffer, TXBUFFERSIZE);
@@ -42,6 +42,16 @@ int main(void) {
   while (1) {
   }
 }
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandler){
+	printf("\n\r BT OR Printf Send Complete \n\r");
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandler){
+	aRxBuffer[10]='\0';
+	printf("%s",aRxBuffer);
+}
+
 
 #ifdef  USE_FULL_ASSERT
 /**
