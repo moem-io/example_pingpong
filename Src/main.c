@@ -9,47 +9,50 @@
 #include "main.h"
 
 uint8_t aTxBuffer[] = "\n\rBT_TransmitTest+OK\n\r";
-uint8_t aRxBuffer[RXBUFFERSIZE];
 
+__IO uint8_t aRxBuffer[RXBUFFERSIZE];
+
+uint8_t ping[] = "\n\rPING+OK\n\r";
+
+uint8_t pong[] = "\n\rPONG+OK\n\r";
+
+__IO ITStatus UartReady = RESET;
 
 int main(void) {
-
-  /* STM32F103xB HAL library initialization:
-     - Configure the Flash prefetch
-     - Systick timer is configured by default as source of time base, but user 
-     can eventually implement his proper time base source (a general purpose 
-     timer for example or other time source), keeping in mind that Time base 
-     duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and 
-     handled in milliseconds basis.
-     - Set NVIC Group Priority to 4
-     - Low Level Initialization
-   */
   HAL_Init();
-
-  /* Configure the system clock to 64 MHz */
   SystemClock_Config();
+
   Term_Init();
   BT_Init();
 
   printf("\n\rTERM_START+OK+\n\r");
   printf("\n\rBT_START+OK+\n\r");
-	
-	BT_Transmit(aTxBuffer, TXBUFFERSIZE);
-	BT_Receive_IT(aRxBuffer);
-	
+
+  BT_Transmit(aTxBuffer, TXBUFFERSIZE);
+  BT_Receive_IT(aRxBuffer);
+
   printf("** Test finished successfully. ** \n\r");
 
   while (1) {
+    if (UartReady == SET) {
+      UartReady = RESET;
+      printf("\n\rArray is : %s \n\r", aRxBuffer);
+      //              uint8_t aRxBuffer[RXBUFFERSIZE] = {'\0' , };
+      printf("\n\rCleaned Array is : %s \n\r", aRxBuffer);
+      BT_Receive_IT(aRxBuffer);
+			
+			printf("After BT_Receive_IT()\n\r");
+    }
   }
 }
 
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandler){
-	printf("\n\r BT OR Printf Send Complete \n\r");
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef * UartHandler) {
+  printf("\n\r BT OR Printf Send Complete \n\r");
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandler){
-	aRxBuffer[10]='\0';
-	printf("%s",aRxBuffer);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef * UartHandler) {
+  UartReady = SET;
+  aRxBuffer[10] = '\0';
 }
 
 
