@@ -32,4 +32,5 @@ Backup/
 ######### Working Files
 *.c~
 *.h~
+*.TMP
 

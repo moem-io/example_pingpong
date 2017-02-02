@@ -10,7 +10,7 @@
 
 uint8_t aTxBuffer[] = "\n\rBT_TransmitTest+OK\n\r";
 
-__IO uint8_t aRxBuffer[RXBUFFERSIZE];
+uint8_t aRxBuffer[RXBUFFERSIZE];
 
 uint8_t ping[] = "\n\rPING+OK\n\r";
 
@@ -37,17 +37,9 @@ int main(void) {
     if (UartReady == SET) {
       UartReady = RESET;
       printf("\n\rArray is : %s \n\r", aRxBuffer);
-      //              uint8_t aRxBuffer[RXBUFFERSIZE] = {'\0' , };
-      printf("\n\rCleaned Array is : %s \n\r", aRxBuffer);
       BT_Receive_IT(aRxBuffer);
-			
-			printf("After BT_Receive_IT()\n\r");
     }
   }
-}
-
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef * UartHandler) {
-  printf("\n\r BT OR Printf Send Complete \n\r");
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef * UartHandler) {

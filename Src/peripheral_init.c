@@ -65,19 +65,18 @@ void BT_Transmit(uint8_t * aTxBuffer, int TXBUFFERSIZE) {
 }
 
 void BT_Receive_IT(uint8_t * aRxBuffer) {
-	/* set RXNE FLAG to 0 by Reading DR Register */
+  /* set RXNE FLAG to 0 by Reading DR Register */
   uint8_t temp = 0;
+
   uint32_t tmp_state = 0;
 
-//		__HAL_UART_DISABLE(&huart3);
-//		__HAL_UART_ENABLE(&huart3);
+  tmp_state = __HAL_UART_GET_FLAG(&huart3, UART_FLAG_RXNE);
+  if (tmp_state == SET) {
+    temp = (uint8_t) (huart3.Instance->DR & (uint8_t) 0x00FF);
+		(void) temp; // suppress unused var warning
+  }
 
-	tmp_state = __HAL_UART_GET_FLAG(&huart3, UART_FLAG_RXNE);
-	if (tmp_state == SET) {
-		temp = (uint8_t) (huart3.Instance->DR & (uint8_t) 0x00FF);
-	}
-
-  /* or Directly CLEAR RXNE Register */
+  /* or Directly CLEAR RXNE Register - ** Error with CLEAR RXNE.** */
 //  __HAL_UART_CLEAR_FLAG(&huart3, UART_FLAG_RXNE);
   if (HAL_UART_Receive_IT(&huart3, (uint8_t *) aRxBuffer, 10) != HAL_OK) {
     printf("HAL_UART_Receive_IT() Error\n\r");

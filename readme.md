@@ -15,3 +15,4 @@ Place your Firmware Package at Keil Pack Location.
 
 ex) `/Keil_v5/ARM/PACK/STM32Cube_FW_F1_V1.4.0`
 
+You can get STM32F1 FW package at here : [STM32CUBE](http://www.st.com/en/ecosystems/stm32cube.html)
