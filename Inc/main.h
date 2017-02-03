@@ -14,11 +14,11 @@
 #include "sys_cfg.h"
 #include "peripheral_init.h"
 
-/* Size of Trasmission buffer */
 #define TXBUFFERSIZE                      (COUNTOF(aTxBuffer) - 1)
-/* Size of Reception buffer */
 #define RXBUFFERSIZE                      TXBUFFERSIZE
   
+#define PINGSIZE															(COUNTOF(ping) - 1)
+	
 /* Exported macro ------------------------------------------------------------*/
 #define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
 /* Exported functions ------------------------------------------------------- */

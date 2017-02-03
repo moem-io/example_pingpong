@@ -7,13 +7,14 @@
   */
 
 #include "main.h"
+#define TRANSMITTER_BOARD
+uint8_t BTRole[] = "AT+ROLE1";
+uint8_t BTConn[] = "AT+CONB4994C57C4CF";
 
 uint8_t aTxBuffer[] = "\n\rBT_TransmitTest+OK\n\r";
-
 uint8_t aRxBuffer[RXBUFFERSIZE];
 
 uint8_t ping[] = "\n\rPING+OK\n\r";
-
 uint8_t pong[] = "\n\rPONG+OK\n\r";
 
 __IO ITStatus UartReady = RESET;
@@ -28,8 +29,13 @@ int main(void) {
   printf("\n\rTERM_START+OK+\n\r");
   printf("\n\rBT_START+OK+\n\r");
 
-  BT_Transmit(aTxBuffer, TXBUFFERSIZE);
-  BT_Receive_IT(aRxBuffer);
+#ifdef TRANSMITTER_BOARD
+//              BT_Transmit(BTRole, COUNTOF(BTRole)-1);
+//  BT_Transmit(BTConn, COUNTOF(BTConn)-1);
+  BT_Transmit(ping, PINGSIZE);
+#endif
+
+  BT_Receive_IT(aRxBuffer, PINGSIZE);
 
   printf("** Test finished successfully. ** \n\r");
 
@@ -37,7 +43,7 @@ int main(void) {
     if (UartReady == SET) {
       UartReady = RESET;
       printf("\n\rArray is : %s \n\r", aRxBuffer);
-      BT_Receive_IT(aRxBuffer);
+      BT_Receive_IT(aRxBuffer, PINGSIZE);
     }
   }
 }
@@ -45,6 +51,7 @@ int main(void) {
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef * UartHandler) {
   UartReady = SET;
   aRxBuffer[10] = '\0';
+  BT_Transmit(aRxBuffer, PINGSIZE);
 }
 
 

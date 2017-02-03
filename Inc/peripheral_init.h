@@ -8,4 +8,4 @@ void Term_Init(void);
 void Term_Receive_IT(uint8_t * aRxBuffer);
 void BT_Init(void);
 void BT_Transmit(uint8_t * aTxBuffer,int TXBUFFERSIZE);
-void BT_Receive_IT(uint8_t * aRxBuffer);
+void BT_Receive_IT(uint8_t * aRxBuffer, int RXBUFFERSIZE);
